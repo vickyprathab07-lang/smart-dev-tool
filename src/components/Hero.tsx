@@ -1,8 +1,16 @@
 import { Button } from "@/components/ui/button";
-import { Code2, Sparkles } from "lucide-react";
+import { Code2, Sparkles, ChevronDown } from "lucide-react";
 import heroBanner from "@/assets/hero-banner.jpg";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
+  const scrollToCodeExample = () => {
+    const element = document.getElementById("code-example");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -35,15 +43,30 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="bg-gradient-primary hover:opacity-90 text-primary-foreground shadow-lg-custom text-lg px-8 py-6"
+              onClick={scrollToCodeExample}
             >
               Start Coding with AI
+              <ChevronDown className="ml-2 w-5 h-5" />
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
               className="border-2 border-primary text-primary hover:bg-primary/10 text-lg px-8 py-6"
+              asChild
             >
-              View Capabilities
+              <Link to="/about">
+                View Capabilities
+              </Link>
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-2 border-primary text-primary hover:bg-primary/10 text-lg px-8 py-6"
+              asChild
+            >
+              <Link to="/todo">
+                Try Todo List
+              </Link>
             </Button>
           </div>
 
@@ -66,6 +89,11 @@ const Hero = () => {
 
       {/* Decorative Elements */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10" />
+      
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <ChevronDown className="w-6 h-6 text-muted-foreground" />
+      </div>
     </section>
   );
 };

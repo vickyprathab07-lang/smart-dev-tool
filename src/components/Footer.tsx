@@ -1,4 +1,5 @@
 import { Code2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -10,9 +11,20 @@ const Footer = () => {
             <span className="text-xl font-bold text-foreground">CodeNavigator</span>
           </div>
           
-          <p className="text-muted-foreground text-center md:text-right">
-            Your advanced AI coding partner. Always ready to help you code better.
-          </p>
+          <nav className="flex gap-6">
+            <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
+              Home
+            </Link>
+            <Link to="/about" className="text-muted-foreground hover:text-foreground transition-colors">
+              About
+            </Link>
+            <Link to="/features" className="text-muted-foreground hover:text-foreground transition-colors">
+              Features
+            </Link>
+            <Link to="/todo" className="text-muted-foreground hover:text-foreground transition-colors">
+              Todo List
+            </Link>
+          </nav>
         </div>
         
         <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">

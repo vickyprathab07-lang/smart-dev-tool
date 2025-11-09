@@ -7,41 +7,56 @@ import {
   Zap, 
   Shield 
 } from "lucide-react";
+import { useFeatures } from "@/hooks/useApi";
+import { Skeleton } from "@/components/ui/skeleton";
 
-const features = [
-  {
-    icon: Code2,
-    title: "Multi-Language Support",
-    description: "Write production-ready code in HTML, CSS, JavaScript, React, Python, C++, Java, and more.",
-  },
-  {
-    icon: Bug,
-    title: "Debug & Fix",
-    description: "Analyze error logs, identify issues, and get instant fixes for your code problems.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Smart Explanations",
-    description: "Understand complex code with clear, simple explanations tailored to your level.",
-  },
-  {
-    icon: FileCode,
-    title: "Full Project Scaffolding",
-    description: "Build complete applications from natural language descriptions with proper structure.",
-  },
-  {
-    icon: Zap,
-    title: "Code Optimization",
-    description: "Refactor and optimize your code for better performance, readability, and maintainability.",
-  },
-  {
-    icon: Shield,
-    title: "Best Practices",
-    description: "Follow industry standards with clean, secure, and well-documented code generation.",
-  },
-];
+const iconMap = {
+  code: Code2,
+  bug: Bug,
+  lightbulb: Lightbulb,
+  filecode: FileCode,
+  zap: Zap,
+  shield: Shield,
+};
 
 const Features = () => {
+  const { data: features, isLoading, error } = useFeatures();
+
+  if (isLoading) {
+    return (
+      <section className="py-24 px-4 bg-gradient-subtle">
+        <div className="container mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <Skeleton className="h-12 w-3/4 mx-auto mb-4" />
+            <Skeleton className="h-6 w-1/2 mx-auto" />
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {[...Array(6)].map((_, index) => (
+              <Card key={index} className="p-6">
+                <Skeleton className="h-12 w-12 rounded-lg mb-4" />
+                <Skeleton className="h-6 w-3/4 mb-2" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-4/5 mt-2" />
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="py-24 px-4 bg-gradient-subtle">
+        <div className="container mx-auto text-center">
+          <h2 className="text-2xl font-bold text-red-500">
+            Failed to load features: {(error as Error).message}
+          </h2>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-24 px-4 bg-gradient-subtle">
       <div className="container mx-auto">
@@ -55,11 +70,11 @@ const Features = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
+          {features?.map((feature, index) => {
+            const Icon = iconMap[feature.icon as keyof typeof iconMap] || Code2;
             return (
               <Card 
-                key={index} 
+                key={feature.id} 
                 className="p-6 hover:shadow-lg-custom transition-all duration-300 hover:-translate-y-1 bg-card border-border animate-slide-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >

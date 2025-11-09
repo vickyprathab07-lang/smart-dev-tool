@@ -36,6 +36,20 @@ npm i
 npm run dev
 ```
 
+# Running the Backend Server
+
+This project now includes a backend API server built with Express.js. To run the backend:
+
+```sh
+# Run the backend server
+npm run server
+
+# Or run the backend server in development mode with auto-reloading
+npm run dev:server
+```
+
+The backend server will start on port 3001 by default (http://localhost:3001).
+
 **Edit a file directly in GitHub**
 
 - Navigate to the desired file(s).
@@ -48,7 +62,7 @@ npm run dev
 - Click on the "Code" button (green button) near the top right.
 - Select the "Codespaces" tab.
 - Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- Edit files directly within the Codespaces and commit and push your changes once you're done.
 
 ## What technologies are used for this project?
 
@@ -59,6 +73,7 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+- Express.js (Backend)
 
 ## How can I deploy this project?
 
